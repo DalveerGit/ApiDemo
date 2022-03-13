@@ -1,4 +1,5 @@
 ﻿using DemoWebApiWithSwagger.Interfaces;
+using DemoWebApiWithSwagger.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -37,6 +38,21 @@ namespace DemoWebApiWithSwagger.Controllers
             try
             {
                 return Ok(await _employeeService.getEmployeeById(Id));
+            }
+            catch (System.Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while getting data from the database");
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> addEmployee(Employee employee)
+        {
+            try
+            {
+                return Ok(await _employeeService.addEmployee(employee));
             }
             catch (System.Exception)
             {
